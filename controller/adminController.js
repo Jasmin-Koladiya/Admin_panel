@@ -92,7 +92,7 @@ module.exports.insertData = async function (req, res) {
                 return false;
             }
         });
-    req.flash('success','Admin record inserted successfully')
+    req.flash('success','Admin record inserted successfully in Database')
         return res.redirect('/view_admin');
     });
 
