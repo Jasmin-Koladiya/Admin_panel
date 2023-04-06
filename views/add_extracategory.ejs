@@ -1,0 +1,82 @@
+<%- include('header') %>
+<div class="page-wrapper">
+  <div class="page-breadcrumb">
+    <div class="row">
+      <div class="col-12 d-flex no-block align-items-center">
+        <h4 class="page-title">Form Basic</h4>
+        <%if(flash.success && flash.success.length > 0){%>
+          <div class="alert alert-success ">
+            <%=flash.success%>
+          </div>
+          <%}%>
+        <div class="ms-auto text-end">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Library
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <form class="form-horizontal" method="post" action="/extracategory/insert_extracategory" >
+            <div class="card-body">
+              <h4 class="card-title">extracategory Info</h4>
+              <div>
+                <select class="form-control" name="categoryid" id="categoryid" onchange="getsubcategoryData()">
+                  <option value=" ">-- select category--</option>
+                  <%for (var c of cateData){%>
+                    <option value="<%=c.id%>"><%=c.category%></option>
+                    <%}%>
+                  
+                </select>
+              </div>
+              <div>select subcategory</div>
+              <div>
+                <select class="form-control" name="subcategoryid" id="subcategoryid" >
+                  <option value=" ">-- select subcategory --</option>                 
+                </select>
+              </div>
+              <div class="form-group row">
+                <label for="fname" class="col-sm-3 text-end control-label col-form-label"> Enter extracategory</label>
+                <div class="col-sm-9">
+                  <input type="text" name="extracategory" class="form-control" id="extracategory" placeholder="Enter extracategory" />
+                </div>
+              </div>
+            </div>
+            <div class="border-top">
+              <div class="card-body">
+                <input type="submit" class="btn btn-primary" value="Submit" name="submit">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script>
+      function getsubcategoryData()
+      {
+        var cateid = document.getElementById('categoryid').value;
+        $.ajax({
+        url: '/extracategory/subdata',
+        type: 'post',
+        data : {
+          'cateid' : cateid 
+        },
+        success: function(res){
+          $('#subcategoryid').html(res);
+        }
+       })
+      }
+    </script>
+
+    <%- include('footer') %>

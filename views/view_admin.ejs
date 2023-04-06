@@ -1,0 +1,75 @@
+<%- include('header') %>
+
+
+<div class="page-wrapper">
+    <div class="page-breadcrumb">
+      <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+          <h4 class="page-title">Tables</h4>
+          <div class="ms-auto text-end">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  Library
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title mb-0">Static Table</h5>
+              <form action="">
+                <input type="text" class="form-control" name="search">
+                <input type="submit" value="search">
+              </form>
+            </div>
+            <%if(flash.success && flash.success.length > 0){%>
+              <div class="alert alert-success ">
+                <%=flash.success%>
+              </div>
+              <%}%>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">City</th>
+                  <th scope="col">Avatar</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% var no = 1; for(var i of data) { %>
+                  <tr>
+                    <th scope="col"><%= no++ %></th>
+                    <th scope="col"><a href="/viewProfile/<%= i.id %>"><%= i.name %></a></th>
+                    <th scope="col"><%= i.email %></th>
+                    <th scope="col"><%= i.city %></th>
+                    <th scope="col"><img src="<%= i.avatar %>" height="100"></th>
+                    <th scope="col"><a href="/deleteData/<%= i.id %>"><i class="fa fa-trash"></i></a> || <a href="/updateData/<%= i.id %>"><i class="fa fa-edit"></i></a></th>
+                  </tr>
+                <% } %>
+              </tbody>
+              <tr>
+                <td>
+                  <a href="?page=<%= previous%>&search=<%= searchdata %>">previous</a>
+                  <a href="?page=<%= current %>&search=<%= searchdata %>">current</a>
+                  <a href="?page=<%= next%>&search=<%= searchdata %>">next</a>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+<%- include('footer') %>

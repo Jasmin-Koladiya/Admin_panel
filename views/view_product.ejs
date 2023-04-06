@@ -1,0 +1,63 @@
+<%- include('header') %>
+
+
+<div class="page-wrapper">
+    <div class="page-breadcrumb">
+      <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+          <h4 class="page-title">Category Tables</h4>
+          <div class="ms-auto text-end">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  Library
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title mb-0">Category Table</h5>
+            </div>
+            <%if(flash.success && flash.success.length > 0){%>
+              <div class="alert alert-success ">
+                <%=flash.success%>
+              </div>
+              <%}%>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">No</th>
+                  <th scope="col">Category Name</th>
+                  <th scope="col">Subcategory Name</th>
+                  <th scope="col">extracategory Name</th>
+                  <th scope="col">product Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% var no = 1; for(var e of product) { %>
+                  <tr>
+                    <th scope="col"><%= no++ %></th>
+                    <th scope="col"><%= e.categoryid.category %></th>
+                    <th scope="col"><%= e.subcategoryid.subcategory%></th>
+                    <th scope="col"><%= e.extracategoryid.extracategory%></th>
+                    <th scope="col"><%= e.product%></th>
+                  </tr>
+                  </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+<%- include('footer') %>

@@ -1,0 +1,114 @@
+<%- include('header') %>
+  <div class="page-wrapper">
+    <div class="page-breadcrumb">
+      <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+          <h4 class="page-title">Category Tables</h4>
+          <div class="ms-auto text-end">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  Library
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title mb-0">Category Table</h5>
+            </div>
+            <%if(flash.success && flash.success.length> 0){%>
+              <div class="alert alert-success ">
+                <%=flash.success%>
+              </div>
+              <%}%>
+                <form action="/category/searchingData" method="post">
+                  <input type="text" name="search"><input type="submit" value="search">
+                </form>
+
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">No</th>
+                      <th scope="col">Category Name</th>
+                      <th scope="col">status</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <% var no=1; for(var c of activedata) { %>
+                      <tr>
+                        <th scope="col">
+                          <%= no++ %>
+                        </th>
+                        <th scope="col">
+                          <%= c.category %>
+                        </th>
+                        <th>
+                          <% if(c.isactive){%>
+                            <a href="/category/deactivestatus/<%= c.id %>">Active</a>
+                            <%} else {%>
+                              <a href="/category/activestatus/<%= c.id %>">deactive</a>
+                              <%}%>
+                        </th>
+                        <th scope="col"><a href="/category/delete_category/<%= c.id %>"><i class="fa fa-trash"></i></a>
+                          &nbsp;&nbsp;|&nbsp;&nbsp;|&nbsp;&nbsp; <a href="/category/update_category/<%= c.id %>">
+                            <i class="fa fa-edit"></i></a></th>
+                        </tr>
+                      </tr>
+                      <% } %>
+                  </tbody>
+
+
+
+
+                
+                </table>
+
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">No</th>
+                      <th scope="col">Category Name</th>
+                      <th scope="col">status</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <% var no=1; for(var c of deactivedata) { %>
+                      <tr>
+                        <th scope="col">
+                          <%= no++ %>
+                        </th>
+                        <th scope="col">
+                          <%= c.category %>
+                        </th>
+                        <th>
+                          <% if(c.isactive){%>
+                            <a href="/category/deactivestatus/<%= c.id %>">Active</a>
+                            <%} else {%>
+                              <a href="/category/activestatus/<%= c.id %>">deactive</a>
+                              <%}%>
+                        </th>
+                        <th scope="col"><a href="/category/delete_category/<%= c.id %>"><i class="fa fa-trash"></i></a>
+                          &nbsp;&nbsp;|&nbsp;&nbsp;|&nbsp;&nbsp; <a href="/category/update_category/<%= c.id %>">
+                            <i class="fa fa-edit"></i></a></th>
+                        </tr>
+                      </tr>
+                      <% } %>
+                  </tbody>               
+                </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%-include('footer') %>

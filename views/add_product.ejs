@@ -1,0 +1,102 @@
+<%- include('header') %>
+<div class="page-wrapper">
+  <div class="page-breadcrumb">
+    <div class="row">
+      <div class="col-12 d-flex no-block align-items-center">
+        <h4 class="page-title">Form Basic</h4>
+        <%if(flash.success && flash.success.length > 0){%>
+          <div class="alert alert-success ">
+            <%=flash.success%>
+          </div>
+          <%}%>
+        <div class="ms-auto text-end">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Library
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <form class="form-horizontal" method="post" action="/product/insert_product" >
+            <div class="card-body">
+              <h4 class="card-title">product Info</h4>
+              <div>
+                <select class="form-control" name="categoryid" id="categoryid" onchange="return getsubcategoryData()">
+                  <option value=" ">-- select category--</option>
+                  <%for (var q of cateData){%>
+                    <option value="<%=q.id%>"><%=q.category%></option>
+                    <%}%>
+                  
+                </select>
+              </div>
+              <div></div>
+              <div>
+                <select class="form-control" name="subcategoryid" id="subcategoryid" onchange="return getextracategoryData()" >
+                  <option value=" ">-- select subcategory --</option>                 
+                </select>
+              </div>
+              <div>
+                <select class="form-control" name="extracategoryid" id="extracategoryid"  >
+                  <option value=" ">-- select extracategory --</option>                 
+                </select> 
+              </div>
+              <div class="form-group row">
+                <label for="fname" class="col-sm-3 text-end control-label col-form-label"> Enter product</label>
+                <div class="col-sm-9">
+                  <input type="text" name="product" class="form-control" id="product" placeholder="Enter product" />
+                </div>
+              </div>
+            </div>
+            <div class="border-top">
+              <div class="card-body">
+                <input type="submit" class="btn btn-primary" value="Submit" name="submit">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script>
+      function getsubcategoryData()
+      {
+        var cateid = document.getElementById('categoryid').value;
+        // alert(cateid)
+        $.ajax({
+        url: '/extracategory/subdata',
+        type: 'post',
+        data : {
+          'cateid' : cateid 
+        },
+        success: function(res){
+          $('#subcategoryid').html(res);
+        }
+       })
+      }
+      function getextracategoryData()
+      {
+        var cateid = document.getElementById('subcategoryid').value;
+        $.ajax({
+        url: '/product/extradata',
+        type: 'post',
+        data : {
+          'extraid' : cateid 
+        },
+        success: function(res){
+          $('#extracategoryid').html(res);
+        }
+       })
+      }
+    </script>
+
+    <%- include('footer') %>
